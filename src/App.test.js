@@ -17,3 +17,8 @@ test('show DOM in console with screen', () => {
   render(<App/>);
   screen.debug()
 })
+
+test('use fragment', () => {
+  const { asFragment } = render(<App/>);
+  expect(asFragment(<App/>)).toMatchSnapshot();
+})
