@@ -14,7 +14,7 @@ describe("App", () => {
         expect(screen.getByRole('textbox')).toBeInTheDocument();
         expect(screen.getByLabelText(/search/i)).toBeInTheDocument();
         expect(screen.getByPlaceholderText("Search text...")).toBeInTheDocument();
-        expect(screen.getByAltText('search-image')).toBeInTheDocument();
+        expect(screen.getByAltText('search')).toBeInTheDocument();
         expect(screen.getByDisplayValue('')).toBeInTheDocument();
     })
 });
