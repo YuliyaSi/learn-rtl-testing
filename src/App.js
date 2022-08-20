@@ -2,9 +2,10 @@ import {useState} from "react";
 
 const Search = ({ value, onChange, children }) => (
     <div>
+        <img alt="search-image"/>
       <label htmlFor="search">{children}</label>
         <br/>
-      <input type="text" id="search" value={value} onChange={onChange}/>
+      <input type="text" id="search" value={value} onChange={onChange} placeholder="Search text..."/>
     </div>
 )
 
