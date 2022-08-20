@@ -1,5 +1,4 @@
 import {useState} from "react";
-import App1 from "./App1";
 
 const Search = ({ value, onChange, children }) => (
     <div>
@@ -10,7 +9,7 @@ const Search = ({ value, onChange, children }) => (
     </div>
 )
 
-const App = () => {
+const App1 = () => {
   const [search, setSearch] = useState('');
 
   const handleChange = ({ target }) => {
@@ -18,17 +17,13 @@ const App = () => {
   }
 
   return (
-      <>
-          <div>
-              <Search value={search} onChange={handleChange}>
-                  Search:
-              </Search>
-              <p>Searches for {search || '...'}</p>
-          </div>
-          <hr/>
-          <App1/>
-      </>
+      <div>
+        <Search value={search} onChange={handleChange}>
+          Search:
+        </Search>
+        <p>Searches for {search || '...'}</p>
+      </div>
   )
 }
 
-export default App;
+export default App1;
