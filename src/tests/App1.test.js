@@ -113,7 +113,20 @@ describe("user events", () => {
         expect(radio).toHaveFocus();
     });
 
-    it('should select element', () => {
+    it('should select option', () => {
+        const { getByRole, getByText } = render(
+            <select>
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+            </select>
+        );
 
+        userEvent.selectOptions(getByRole('combobox'), '1');
+        expect(getByText("A").selected).toBeTruthy();
+
+        userEvent.selectOptions(getByRole('combobox'), "2");
+        expect(getByText("B").selected).toBeTruthy();
+        expect(getByText("A").selected).toBeFalsy();
     });
 })
