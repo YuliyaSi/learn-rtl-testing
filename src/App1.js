@@ -7,7 +7,7 @@ const Search = ({ value, onChange, children }) => (
         <img alt="search-image"/>
       <label htmlFor="search">{children}</label>
         <br/>
-      <input type="text" id="search" value={value} onChange={onChange} placeholder="Search text..."/>
+      <input type="text" id="search" value={value} onChange={onChange} placeholder="Search text..." required/>
     </div>
 )
 

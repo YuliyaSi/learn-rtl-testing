@@ -23,4 +23,12 @@ describe("App1", () => {
        expect(await screen.findByText(/Logged as/i)).toBeInTheDocument();
        screen.debug()
     });
+
+    it('use assertive functions', () => {
+        render(<App1/>);
+        expect(screen.queryByRole('img')).not.toHaveClass('image');
+        expect(screen.getByRole('textbox')).toBeRequired();
+        expect(screen.getByLabelText(/searc/i)).toBeEmptyDOMElement();
+        expect(screen.getByLabelText(/search/i)).toHaveAttribute("id")
+    });
 })
