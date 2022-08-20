@@ -1,4 +1,6 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+
+const getUser = () => Promise.resolve({ id: 1, name: "Yuliya"})
 
 const Search = ({ value, onChange, children }) => (
     <div>
@@ -11,6 +13,15 @@ const Search = ({ value, onChange, children }) => (
 
 const App1 = () => {
   const [search, setSearch] = useState('');
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+      const loadUser = async () => {
+          return await getUser()
+      }
+
+      loadUser().then(data => setUser(data))
+  }, [])
 
   const handleChange = ({ target }) => {
     setSearch(target.value);
@@ -18,6 +29,7 @@ const App1 = () => {
 
   return (
       <div>
+          {user && <h2>Logged as {user.name}</h2>}
         <Search value={search} onChange={handleChange}>
           Search:
         </Search>

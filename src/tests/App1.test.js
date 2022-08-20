@@ -7,4 +7,20 @@ describe("App1", () => {
         screen.debug();
         expect(screen.getByRole('img')).toBeInTheDocument();
     });
+
+    it('try different search variants', () => {
+        render(<App1/>);
+        // expect(screen.getByText(/Searches for React/i)).toBeNull() - error
+        expect(screen.queryByText(/Searches for React/i)).toBeNull();
+        // expect(screen.findByText(/Searches for React/i)).toBeNull(); - best for async values
+    });
+
+    it('should find user name', async () => {
+       render(<App1/>);
+
+       expect(screen.queryByText(/Logged as/i)).toBeNull();
+       screen.debug()
+       expect(await screen.findByText(/Logged as/i)).toBeInTheDocument();
+       screen.debug()
+    });
 })
