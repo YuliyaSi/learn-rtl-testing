@@ -1,5 +1,6 @@
 import App1 from "../App1";
 import {render, screen, fireEvent} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 describe("App1", () => {
     it('render App1 and image tag', () => {
@@ -63,5 +64,69 @@ describe('fire events', () => {
         expect(input).not.toHaveFocus();
         input.focus();
         expect(input).toHaveFocus();
+    });
+});
+
+describe("user events", () => {
+    it('should input text', async () => {
+        render(<App1/>);
+        await screen.findByText(/Logged as/i);
+        expect(screen.queryByText(/searches for react/i)).toBeNull();
+        userEvent.type(screen.getByRole('textbox'), 'React')
+        expect(screen.queryByText(/searches for react/i)).toBeInTheDocument();
+    });
+
+    it('should change checkbox', () => {
+        const { container } = render(<input type="checkbox"/>)
+        const checkbox = container.firstElementChild;
+        expect(checkbox).not.toBeChecked();
+        userEvent.click(checkbox);
+        // userEvent.click(checkbox, { ctrlKey: true, shiftKey: true });
+        expect(checkbox).toBeChecked();
+    });
+
+    it('double click checkbox', () => {
+        const handleChange = jest.fn();
+        const { container } = render(<input type="checkbox" onChange={handleChange}/>)
+        const checkbox = container.firstElementChild;
+        expect(checkbox).not.toBeChecked();
+        userEvent.dblClick(checkbox);
+        // userEvent.click(checkbox, { ctrlKey: true, shiftKey: true });
+        expect(checkbox).not.toBeChecked();
+        expect(handleChange).toHaveBeenCalledTimes(2)
+    });
+
+    it('should change focus', () => {
+        const { getAllByTestId } = render(
+            <div>
+                <input type="checkbox" data-testId="elem"/>
+                <input type="number" data-testId="elem"/>
+                <input type="radio" data-testId="elem"/>
+            </div>
+        );
+        const [checkbox, number, radio] = getAllByTestId("elem");
+        userEvent.tab();
+        expect(checkbox).toHaveFocus();
+        userEvent.tab();
+        expect(number).toHaveFocus();
+        userEvent.tab();
+        expect(radio).toHaveFocus();
+    });
+
+    it('should select option', () => {
+        const { getByRole, getByText } = render(
+            <select>
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+            </select>
+        );
+
+        userEvent.selectOptions(getByRole('combobox'), '1');
+        expect(getByText("A").selected).toBeTruthy();
+
+        userEvent.selectOptions(getByRole('combobox'), "2");
+        expect(getByText("B").selected).toBeTruthy();
+        expect(getByText("A").selected).toBeFalsy();
     });
 })
