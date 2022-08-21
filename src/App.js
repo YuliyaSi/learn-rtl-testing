@@ -1,5 +1,6 @@
 import {useState} from "react";
 import App1 from "./App1";
+import App2 from "./App2";
 
 const Search = ({ value, onChange, children }) => (
     <div>
@@ -27,6 +28,8 @@ const App = () => {
           </div>
           <hr/>
           <App1/>
+          <hr/>
+          <App2/>
       </>
   )
 }
